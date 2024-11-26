@@ -1,0 +1,82 @@
+<?xml version ="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width ="match_parent"
+    android:layout_height ="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal ="16dp"
+    android:layout_marginVertical ="8dp"
+    app:cardCornerRadius ="30dp"
+
+    app:cardElevation ="10dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width ="match_parent"
+        android:layout_height ="wrap_content"
+        android:background="@drawable/degradadocardview"
+        >
+
+        <ImageView
+            android:id="@+id/imagenArtista"
+            android:layout_width ="150dp"
+            android:layout_height ="150dp"
+            app:layout_constraintStart_toStartOf ="parent"
+            app:layout_constraintTop_toTopOf ="parent"
+            tools:background ="@color/black" />
+
+        <TextView
+            android:id="@+id/nameArtista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.459"
+            app:layout_constraintStart_toEndOf="@id/imagenArtista"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nombre" />
+
+        <TextView
+            android:id="@+id/generoMusical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintStart_toEndOf="@id/imagenArtista"
+            app:layout_constraintTop_toBottomOf="@id/nameArtista"
+            tools:text="Genero musical" />
+
+        <TextView
+            android:id="@+id/numeroAlbums"
+            android:layout_width ="wrap_content"
+            android:layout_height ="wrap_content"
+            app:layout_constraintStart_toEndOf ="@id/imagenArtista"
+            app:layout_constraintTop_toBottomOf ="@id/generoMusical"
+            app:layout_constraintEnd_toEndOf ="parent"
+            tools:text="Albumes"
+            android:textColor="@color/white"
+            android:textSize = "18sp"
+            />
+
+        <TextView
+            android:id="@+id/fechaNacimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toEndOf="@id/imagenArtista"
+            app:layout_constraintTop_toBottomOf="@id/numeroAlbums"
+            tools:text="Nacimiento" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout >
+</androidx.cardview.widget.CardView >
