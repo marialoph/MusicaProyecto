@@ -13,8 +13,8 @@ class Controller (val context : Context){
         initData()
     }
     fun initData(){
-        // listHotels = DaoHotels2.myDao.toMutableList()
-        listaMusica = DaoMusica. myDao.getDataMusica(). toMutableList() //llamamos al singleton.
+
+        listaMusica = DaoMusica. myDao.getDataMusica(). toMutableList()
     }
     fun loggOut() {
         Toast.makeText( context, "He mostrado los datos en pantalla", Toast. LENGTH_LONG).show()
@@ -22,8 +22,8 @@ class Controller (val context : Context){
             println (it)
         }
     }
-    fun setAdapter() { // Cargamos nuestro AdapterHotgel al adapter del RecyclerView
+    fun setAdapter() {
         val myActivity = context as MainActivity
-        myActivity. binding.myRecyclerView.adapter = AdapterMusica(listaMusica) // Cargamos el Adapter que creamos.
+        myActivity. binding.myRecyclerView.adapter = AdapterMusica(listaMusica)
     }
 }

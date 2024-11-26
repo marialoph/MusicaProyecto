@@ -13,15 +13,14 @@ class AdapterMusica(var listaMusica : MutableList<Musica>) : RecyclerView.Adapte
         return ViewHMusica(binding)
     }
 
-    /*
-    Este método renderiza los datos de cada objeto Musica en el ViewHolder
-    */
+
+    //Este método renderiza los datos de cada objeto Musica en el ViewHolder
+
     override fun onBindViewHolder(holder: ViewHMusica, position: Int) {
         holder.renderize(listaMusica[position]) // Renderizamos la vista con los datos
     }
 
-    /*
-    Devuelve el número de elementos en la lista
-    */
+
+    //Devuelve el número de elementos en la lista
     override fun getItemCount(): Int = listaMusica.size
 }
