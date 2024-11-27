@@ -20,12 +20,14 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
 
         listaMusica = DaoMusica. myDao.getDataMusica(). toMutableList()
     }
+
     fun loggOut() {
         Toast.makeText( context, "He mostrado los datos en pantalla", Toast. LENGTH_LONG).show()
         listaMusica.forEach{
             println (it)
         }
     }
+
     fun setAdapter() {
         val myActivity = context as MainActivity
 
@@ -37,33 +39,13 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
         myActivity. binding.myRecyclerView.adapter = adapterMusica
     }
 
+    // Elimina la música de la lista
    fun delMusica(pos: Int) {
-        // Elimina la música de la lista
         listaMusica.removeAt(pos)
-
-        // Notifica al adaptador que el ítem ha sido eliminado
         (binding.myRecyclerView.adapter as AdapterMusica).notifyItemRemoved(pos)
-
-        // Muestra un mensaje de confirmación
         Toast.makeText(context, "Se eliminó el artista de la posición $pos", Toast.LENGTH_SHORT).show()
     }
 
- /** fun delMusica(pos: Int) {
-      // Crear el diálogo de confirmación antes de eliminar
-      AlertDialog.Builder(context).apply {
-          setTitle("Eliminar Música")
-          setMessage("¿Estás seguro de que quieres eliminar el artista?")
-          setPositiveButton("Sí") { _, _ ->
-              listaMusica.removeAt(pos)
-
-              (binding.myRecyclerView.adapter as AdapterMusica).notifyItemRemoved(pos)
-
-              // Muestra un mensaje de confirmación
-              Toast.makeText(context, "Se eliminó el artista de la posición $pos", Toast.LENGTH_SHORT).show()
-          }
-          setNegativeButton("No", null)
-      }.show()
-  }**/
 
 
 }
