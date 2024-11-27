@@ -5,8 +5,10 @@ import com.bumptech.glide.Glide
 import com.example.proyectomusica.databinding.ItemMusicaBinding
 import com.example.proyectomusica.models.Musica
 
-class ViewHMusica(private val binding: ItemMusicaBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun renderize(musica: Musica) {
+class ViewHMusica(private val binding: ItemMusicaBinding,
+    private val deleteOnClick: (Int) ->Unit
+) : RecyclerView.ViewHolder(binding.root) {
+    fun renderize(musica: Musica, position: Int) {
         binding.nameArtista.text = musica.nombre
         binding.generoMusical.text = musica.generoMusical
         binding.numeroAlbums.text = musica.albums
@@ -15,5 +17,12 @@ class ViewHMusica(private val binding: ItemMusicaBinding) : RecyclerView.ViewHol
             .load(musica.image)
             .centerCrop()
             .into(binding.imagenArtista)
+
+        setOnClickListener(position)
+    }
+    private fun setOnClickListener(position : Int) {
+        binding.buttonBorrar.setOnClickListener {
+            deleteOnClick(position)
+        }
     }
 }

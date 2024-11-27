@@ -25,9 +25,19 @@ object Repository {
             "https://static.wikia.nocookie.net/totallyspies/images/8/8e/Billie_Eilish.png/revision/latest?cb=20240424083540"
         ),
         Musica(
+            "Tom Odell", "Género: Indie,", "Nº Albums: 5", "24 de noviembre de 1990",
+            "https://rytmy.pl/wp-content/uploads/2021/11/Tom-Odell.jpg"
+        ),
+        Musica(
+            "Sabrina Carpenter", "Género: Pop,", "Nº Albums: 6", "11 de mayo de 1999",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkZ76tQOAWiYbr4cKw67fuXkqsToE6-4sETQ&s"
+        ),
+
+        Musica(
             "Lana del Rey", "Género: Indie pop,", "Nº Albums: 9", "21 de junio de 1985",
             "https://hips.hearstapps.com/hmg-prod/images/lana-del-rey-vestido-grammys-1580138676.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*"
         ),
+
         Musica(
             "Olivia Rodrigo", "Género: Pop", "Nº Albums: 2", "20 de febrero de 2003",
             "https://akamai.sscdn.co/uploadfile/letras/fotos/5/7/e/e/57eee911b0da5b7af22c17f3bfda611a.jpg"

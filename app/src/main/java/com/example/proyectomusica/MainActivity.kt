@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun init(){
         initRecyclerView()
-        controller = Controller(this)
+        controller = Controller(this, binding)
         controller.setAdapter()
 
     }
