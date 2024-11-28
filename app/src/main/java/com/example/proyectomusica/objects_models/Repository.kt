@@ -3,6 +3,7 @@ package com.example.proyectomusica.objects_models
 import com.example.proyectomusica.models.Musica
 
 object Repository {
+
     val listaMusica : List<Musica> = listOf(
         Musica(
             "Adele", "soul y pop", "Nº Albums: 4", "5 de mayo de 1988",

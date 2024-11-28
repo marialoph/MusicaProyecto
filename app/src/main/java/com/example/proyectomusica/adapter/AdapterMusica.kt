@@ -17,15 +17,12 @@ class AdapterMusica(var listaMusica : MutableList<Musica>,
         return ViewHMusica(binding, deleteOnClick)
     }
 
-
     //Este método renderiza los datos de cada objeto Musica en el ViewHolder
     override fun onBindViewHolder(holder: ViewHMusica, position: Int) {
         holder.renderize(listaMusica[position])
     }
 
-
     //Devuelve el número de elementos en la lista
     override fun getItemCount(): Int = listaMusica.size
-
 
 }

@@ -23,6 +23,7 @@ class ViewHMusica(private val binding: ItemMusicaBinding,
 
         setOnClickListener()
     }
+
     // Método para que al pulsar el boton se elimine el artista
     private fun setOnClickListener() {
         binding.buttonBorrar.setOnClickListener {

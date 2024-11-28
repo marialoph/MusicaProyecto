@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView( binding.root)
         init()
     }
+
     fun init(){
         initRecyclerView()
         controller = Controller(this, binding)

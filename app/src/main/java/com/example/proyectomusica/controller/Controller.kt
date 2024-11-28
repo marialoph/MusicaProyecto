@@ -16,26 +16,25 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
     init {
         initData()
     }
-    fun initData(){
 
+    fun initData(){
         listaMusica = DaoMusica. myDao.getDataMusica(). toMutableList()
     }
 
     // Este método configura el adaptador para el RecyclerView y lo conecta al RecyclerView de la actividad
     fun setAdapter() {
         val myActivity = context as MainActivity
-
         val adapterMusica = AdapterMusica(
             listaMusica,
             {pos -> delMusica(pos)},
-
         )
+
         myActivity. binding.myRecyclerView.adapter = adapterMusica
         myActivity.binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     // Elimina la música de la lista
-    // Creo una variable para que al imprimir el mensaje se sepa que artista se ha eliminado
+    // Creo una variable para que al imprimir el mensaje, se sepa que artista se ha eliminado
     // Se notifica los cambios
     // Y se actualiza las posiciones
     // Se imprimirá un mensaje de que se ha eliminado

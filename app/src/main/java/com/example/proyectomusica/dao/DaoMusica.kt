@@ -11,5 +11,6 @@ class DaoMusica private constructor(): InterfaceMusica {
                 DaoMusica()
             }
         }
+
     override fun getDataMusica(): List<Musica> = Repository.listaMusica
 }
