@@ -60,6 +60,7 @@
             app:layout_constraintTop_toBottomOf ="@id/generoMusical"
             app:layout_constraintEnd_toEndOf ="parent"
             tools:text="Albumes"
+            android:autoSizeTextType="uniform"
             android:textColor="@color/white"
             android:textSize = "18sp"
             />
@@ -71,6 +72,7 @@
             android:layout_marginTop="2dp"
             android:textColor="@color/white"
             android:textSize="15sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toEndOf="@id/imagenArtista"

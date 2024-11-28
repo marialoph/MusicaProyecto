@@ -12,6 +12,7 @@ import com.example.proyectomusica.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     lateinit var controller : Controller
     lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =ActivityMainBinding.inflate( layoutInflater)
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         controller.setAdapter()
 
     }
+
+    //Este método configura el recyclerview dentro del activity
     private fun initRecyclerView() {
         binding.myRecyclerView.layoutManager = LinearLayoutManager( this)
     }
