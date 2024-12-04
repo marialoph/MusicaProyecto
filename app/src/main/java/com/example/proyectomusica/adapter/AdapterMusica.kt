@@ -7,19 +7,21 @@ import com.example.proyectomusica.databinding.ItemMusicaBinding
 import com.example.proyectomusica.models.Musica
 
 class AdapterMusica(var listaMusica : MutableList<Musica>,
-    var deleteOnClick: (Int) -> Unit
+    var deleteOnClick: (Int) -> Unit,
+    private val onEditClick : (Musica) -> Unit
 ) : RecyclerView.Adapter<ViewHMusica>(){
 
     //Método llamado por el recyclerview para crear un nuevo viewHolder
-    //Retorna la vista inflada del diseño de los item y asocia la acción del boton eliminar
+    //Retorna la vista inflada del diseño de los item y asocia la acción del boton eliminar y editar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHMusica {
         val binding = ItemMusicaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHMusica(binding, deleteOnClick)
+        return ViewHMusica(binding, deleteOnClick, onEditClick)
     }
 
     //Este método renderiza los datos de cada objeto Musica en el ViewHolder
     override fun onBindViewHolder(holder: ViewHMusica, position: Int) {
-        holder.renderize(listaMusica[position])
+        val musica = (listaMusica[position])
+        holder.renderize(musica)
     }
 
     //Devuelve el número de elementos en la lista

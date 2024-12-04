@@ -1,0 +1,64 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editGeneroMusical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Género musical"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editAlbums"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Albums"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editGeneroMusical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editFechaNacimiento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fecha nacimiento"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editAlbums"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editImagen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="URL de la imagen"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editFechaNacimiento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,24 +14,28 @@ tools:context=".MainActivity" >
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
         android:padding="25dp" />
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginStart="70dp"
-        android:text="ARTISTAS INTERNACIONALES" />
+        android:gravity="center"
+        android:text="ARTISTAS INTERNACIONALES"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="800dp"
-        android:layout_marginStart="370dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonAnnadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="720dp"
+        android:clickable="true"
         app:srcCompat="@drawable/anadir" />
 
 </FrameLayout>

@@ -26,16 +26,16 @@ object Repository {
             "https://static.wikia.nocookie.net/totallyspies/images/8/8e/Billie_Eilish.png/revision/latest?cb=20240424083540"
         ),
         Musica(
-            "Tom Odell", "indie,", "Nº Albums: 5", "24 de noviembre de 1990",
+            "Tom Odell", "indie", "Nº Albums: 5", "24 de noviembre de 1990",
             "https://rytmy.pl/wp-content/uploads/2021/11/Tom-Odell.jpg"
         ),
         Musica(
-            "Sabrina Carpenter", "pop,", "Nº Albums: 6", "11 de mayo de 1999",
+            "Sabrina Carpenter", "pop", "Nº Albums: 6", "11 de mayo de 1999",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkZ76tQOAWiYbr4cKw67fuXkqsToE6-4sETQ&s"
         ),
 
         Musica(
-            "Lana del Rey", "indie pop,", "Nº Albums: 9", "21 de junio de 1985",
+            "Lana del Rey", "indie pop", "Nº Albums: 9", "21 de junio de 1985",
             "https://hips.hearstapps.com/hmg-prod/images/lana-del-rey-vestido-grammys-1580138676.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*"
         ),
 

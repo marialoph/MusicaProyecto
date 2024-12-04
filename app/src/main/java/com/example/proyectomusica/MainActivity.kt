@@ -8,16 +8,22 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectomusica.controller.Controller
 import com.example.proyectomusica.databinding.ActivityMainBinding
+import com.example.proyectomusica.objects_models.Repository
 
 class MainActivity : AppCompatActivity() {
     lateinit var controller : Controller
     lateinit var binding : ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =ActivityMainBinding.inflate( layoutInflater)
         setContentView( binding.root)
         init()
+
+        binding.buttonAnnadir.setOnClickListener{
+            controller.mostrarAddDialog()
+        }
     }
 
     fun init(){
@@ -31,4 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         binding.myRecyclerView.layoutManager = LinearLayoutManager( this)
     }
+
+
+
 }

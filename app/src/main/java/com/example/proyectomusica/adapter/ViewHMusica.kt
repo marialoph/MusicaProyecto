@@ -7,7 +7,8 @@ import com.example.proyectomusica.models.Musica
 
 //Esta clase se encarga de representar cada ítem
 class ViewHMusica(private val binding: ItemMusicaBinding,
-    private val deleteOnClick: (Int) ->Unit
+    private val deleteOnClick: (Int) ->Unit,
+    private val editOnClick : (Musica) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     //Método para mostrar los datos del objeto Musica
@@ -21,13 +22,17 @@ class ViewHMusica(private val binding: ItemMusicaBinding,
             .centerCrop()
             .into(binding.imagenArtista)
 
-        setOnClickListener()
+        setOnClickListener(musica)
     }
 
-    // Método para que al pulsar el boton se elimine el artista
-    private fun setOnClickListener() {
+    // Método para que al pulsar el boton se elimine el artista y que al pulsar editar me salga el dialogo
+    private fun setOnClickListener(musica: Musica) {
         binding.buttonBorrar.setOnClickListener {
             deleteOnClick(adapterPosition)
+        }
+
+        binding.buttonEditar.setOnClickListener{
+            editOnClick(musica)
         }
     }
 }
