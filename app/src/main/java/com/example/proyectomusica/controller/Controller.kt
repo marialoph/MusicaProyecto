@@ -10,11 +10,12 @@ import com.example.proyectomusica.adapter.AdapterMusica
 import com.example.proyectomusica.dao.DaoMusica
 import com.example.proyectomusica.databinding.ActivityMainBinding
 import com.example.proyectomusica.dialogues.AddDialog
+import com.example.proyectomusica.dialogues.DeleteDialog
 import com.example.proyectomusica.dialogues.EditDialog
 import com.example.proyectomusica.models.Musica
 
 class Controller (val context : Context, var binding : ActivityMainBinding){
-    lateinit var listaMusica : MutableList<Musica> //lista de objetos
+    lateinit var listaMusica : MutableList<Musica>
 
     init {
         initData()
@@ -37,19 +38,19 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
         myActivity.binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    // Elimina la música de la lista
-    // Creo una variable para que al imprimir el mensaje, se sepa que artista se ha eliminado
-    // Se notifica los cambios
-    // Y se actualiza las posiciones
-    // Se imprimirá un mensaje de que se ha eliminado
+    // Muestra el dialogo y actualiza al pulsar el boton borrar.
     fun delMusica(pos: Int) {
         val nombreArtista = listaMusica[pos].nombre
-        listaMusica.removeAt(pos)
-        (binding.myRecyclerView.adapter as AdapterMusica).notifyItemRemoved(pos)
-        (binding.myRecyclerView.adapter as AdapterMusica).notifyItemRangeChanged(pos, listaMusica.size - pos)
-        Toast.makeText(context, "Se eliminó el artista: $nombreArtista", Toast.LENGTH_SHORT).show()
+        val dialog = DeleteDialog(nombreArtista) {
+            listaMusica.removeAt(pos)
+            (binding.myRecyclerView.adapter as AdapterMusica).apply {
+                notifyItemRemoved(pos)
+                notifyItemRangeChanged(pos, listaMusica.size - pos)
+            }
+            Toast.makeText(context, "Se eliminó el artista: $nombreArtista", Toast.LENGTH_SHORT).show()
+        }
+        dialog.show((context as AppCompatActivity).supportFragmentManager, "DeleteDialog")
     }
-
 
     //Muestra la vista del AddDialog
     fun mostrarAddDialog(){
