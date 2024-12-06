@@ -102,3 +102,86 @@ Damos el permiso de internet para que las imágenes se puedan ver.
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
+
+
+### **VERSION 1.2 CRUD completo con alta, edición y borrado en memoria**
+**Cambios en las clases ya creadas de la versión anterior**
+- _AdapterMusica_: Se ha añadido una nueva variable `onEditClick`.
+- _ViewHMusica_: Se ha añadido el botón editar en el método `setOnClickListener`.
+- _Controller_: Se han añadido los metodos para mostrar los dialogos y actualizarlos (add, edit, delete).
+  
+  Los métodos añadidos son los siguientes:
+  ```java
+  
+  //             AÑADIR
+  
+  //Muestra la vista del AddDialog
+    fun mostrarAddDialog(){
+        val addDialog = AddDialog {
+            musica -> actualizaMusicaNueva(musica)
+        }
+        val activity = context as AppCompatActivity
+        addDialog.show(activity.supportFragmentManager, "AddDialog")
+
+    }
+    //Actualiza el cardiewnuevo
+    private fun actualizaMusicaNueva(musica: Musica) {
+        listaMusica.add(musica)
+        (binding.myRecyclerView.adapter as AdapterMusica).notifyItemInserted(listaMusica.size - 1)
+        Toast.makeText(context,"Nuevo artista ${musica.nombre}", Toast.LENGTH_SHORT).show()
+    }
+
+  
+
+  //            EDITAR
+  
+  //Muestra la vista del EditDialog para editar algun campo del artista seleccionado
+    fun mostrarEditDialog(musica: Musica) {
+        val editDialog = EditDialog(musica) {
+            musicaEditada ->
+            actualizaMusicaEditada(musicaEditada)
+        }
+        val activity = context as AppCompatActivity
+        editDialog.show(activity.supportFragmentManager, "EditDialog")
+    }
+
+    //Actualiza el dato que se ha modificado
+    fun actualizaMusicaEditada(musica: Musica) {
+        val position = listaMusica.indexOfFirst {
+            it.nombre == musica.nombre
+        }
+        if (position != -1) {
+            listaMusica[position] = musica
+            (binding.myRecyclerView.adapter as AdapterMusica).notifyItemChanged(position)
+            Toast.makeText(context,"El artista ${musica.nombre} se ha modificado", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+
+  //         DELETE
+  
+  // Muestra el dialogo y actualiza al pulsar el boton borrar.
+    fun delMusica(pos: Int) {
+        val nombreArtista = listaMusica[pos].nombre
+        val dialog = DeleteDialog(nombreArtista) {
+            listaMusica.removeAt(pos)
+            (binding.myRecyclerView.adapter as AdapterMusica).apply {
+                notifyItemRemoved(pos)
+                notifyItemRangeChanged(pos, listaMusica.size - pos)
+            }
+            Toast.makeText(context, "Se eliminó el artista: $nombreArtista", Toast.LENGTH_SHORT).show()
+        }
+        dialog.show((context as AppCompatActivity).supportFragmentManager, "DeleteDialog")
+    }
+  
+
+  ```
+  **Lo que he creado nuevo**
+  
+  Un package llamado `dialogues` que contiene los siguientes ficheros:
+  - _AddDialog_
+  - _DeleteDialog_
+  - _EditDialog_
+    
+  Para que al pulsar los botones se muestren los dialogos.
