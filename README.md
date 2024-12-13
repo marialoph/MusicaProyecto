@@ -185,3 +185,52 @@ Damos el permiso de internet para que las imágenes se puedan ver.
   - _EditDialog_
     
   Para que al pulsar los botones se muestren los dialogos.
+
+
+
+### **VERSION 1.3 Autenticación y creación de usuario en Firebase**
+**Para añadir Firebase al proyecto**
+1. Me creo una cuenta en _Firebase_
+2. Creo un proyecto en _Firebase_
+3. Registro mi app Android (Añadiendo el nombre del paquete de mi app) en el proyecto creado en el punto dos.
+4. Agrego la configuración necesaria de _Firebase_ en mi app.
+   - Descargo el json google-services.json y lo llevo a la raíz del proyecto.
+   - Luego agrego las dependencias necesarias en el gradle.
+```
+    gradle(Module:app)
+
+    //plugins
+    id("com.google.gms.google-services")
+
+    //dependencies
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.auth.ktx)
+```
+
+```
+    gradle(Proyect:app)
+    id("com.google.gms.google-services") version "4.4.2" apply false
+
+```
+
+
+He añadido dos nuevos ficheros:
+- `LoginActivity`: Maneja el inicio de sesión de un usuario mediante Firebase Authentication.
+- `RegisterActivity`: Gestiona el registro de  nuevos usuarios utilizando Firebase Authentication.
+
+En el layout se crea el diseño tanto del register como del login:
+- `activity_login.xml`:
+   - ImageView
+   - EditText email
+   - EditText contraseña
+   - Button iniciar sesión
+   - Button registrarse
+   - Button olvidé contraseña
+- `activity_register.xml`:
+    - ImageView
+    - EditText email
+    - EditText contraseña
+    - EditText repetir contraseña
+    - Button registrarse
+    - Button iniciar sesión
