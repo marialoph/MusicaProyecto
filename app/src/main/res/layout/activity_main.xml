@@ -38,4 +38,16 @@ tools:context=".MainActivity" >
         android:clickable="true"
         app:srcCompat="@drawable/anadir" />
 
+    <Button
+        android:id="@+id/buttonLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/botonesloginregister"
+        app:backgroundTint="@null"
+        android:textSize="10sp"
+        android:layout_marginTop="720dp"
+        android:layout_marginStart="250dp"
+        android:text="Cerrar Sesion" />
+
+
 </FrameLayout>

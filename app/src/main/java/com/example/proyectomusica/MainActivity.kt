@@ -1,5 +1,6 @@
 package com.example.proyectomusica
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonAnnadir.setOnClickListener{
             controller.mostrarAddDialog()
+        }
+
+        binding.buttonLogOut.setOnClickListener{
+            view->
+            intent = Intent(this, LoginActivity::class.java).apply{
+                putExtra("name", "maria")
+            }
+            startActivity(intent)
         }
     }
 

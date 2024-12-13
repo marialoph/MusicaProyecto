@@ -53,6 +53,7 @@
     <EditText
         android:id="@+id/editImagen"
         android:layout_width="0dp"
+        android:textColor="#ff0043"
         android:layout_height="wrap_content"
         android:hint="URL de la imagen"
         android:inputType="text"

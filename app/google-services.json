@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160810833787",
+    "project_id": "proyectomusica-8cac7",
+    "storage_bucket": "proyectomusica-8cac7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160810833787:android:06c1f65d1063b6509e8fde",
+        "android_client_info": {
+          "package_name": "com.example.proyectomusica"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnj6XSZWby22aH0qCfjEZ31Q9H8K_nefI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
