@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         init()
         start()
     }
@@ -61,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
             val pass = editPassword.text.toString()
 
             if (user.isNotEmpty() && pass.isNotEmpty())
-                startLogin(user, pass){
+                iniciarLogin(user, pass){
                         result, msg ->
                     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
                     if (result){
@@ -110,17 +109,13 @@ class LoginActivity : AppCompatActivity() {
                         msg = e.message.toString()
                     }
                     onResult(false, msg)
-
-
                 }
             }
-
-
     }
 
     //Método para iniciar sesion con el email y la contraseña
     // Se debe verificar el correo antes de loguearse.
-    private fun startLogin(user: String, pass: String, onResult: (Boolean, String) -> Unit) {
+    private fun iniciarLogin(user: String, pass: String, onResult: (Boolean, String) -> Unit) {
         auth.signInWithEmailAndPassword(user, pass)
             .addOnCompleteListener {
                     taskAssin ->
@@ -151,6 +146,5 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             }
-
     }
 }

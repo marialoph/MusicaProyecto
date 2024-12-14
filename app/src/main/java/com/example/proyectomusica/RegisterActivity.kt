@@ -19,7 +19,7 @@ import com.google.firebase.auth.auth
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var btnRegister : Button
-    private lateinit var btnLastRegister : Button
+    private lateinit var btnLoguear : Button
     private lateinit var editUser : EditText
     private lateinit var editPassword : EditText
     private lateinit var editRepetirPassword : EditText
@@ -36,7 +36,6 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         init()
         start()
     }
@@ -44,12 +43,11 @@ class RegisterActivity : AppCompatActivity() {
     //Método para inicializar las referencias de los elementos del xml y FirebaseAuth
     private fun init(){
         btnRegister = binding.btnRegistrar
-        btnLastRegister = binding.btnLastRegister
+        btnLoguear = binding.btnLogueo
         editUser = binding.editUserRegister
         editPassword = binding.editPasswordRegister
         editRepetirPassword = binding.editRepetirPassword
         auth = Firebase.auth
-
     }
 
     //Método que configura los botones
@@ -67,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
                 || repeatPass.isEmpty())
                 Toast.makeText(this, "Campo vacío/Contraseña incorrecta", Toast.LENGTH_LONG).show()
             else{
-                registerUser (email, pass){
+                registroDelUsuario (email, pass){
                         result, msg ->
                     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
                     if (result)
@@ -76,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        btnLastRegister.setOnClickListener{
+        btnLoguear.setOnClickListener{
             view->
                 val intent = Intent (this, LoginActivity::class.java)
                 startActivity(intent)
@@ -89,12 +87,11 @@ class RegisterActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
-
     }
 
     //Método para registrar a un usuario en Firebase
     //Se crea el usuario, se envía el correo de verificacion para poder loguarse.
-    private fun registerUser(email: String, pass: String, onResult: (Boolean, String) -> Unit) {
+    private fun registroDelUsuario(email: String, pass: String, onResult: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(this){
                     taskAssin->
@@ -134,7 +131,6 @@ class RegisterActivity : AppCompatActivity() {
 
                 }
             }
-
 
     }
 }
