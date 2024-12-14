@@ -26,15 +26,25 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.main)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false)
+
+        if (isLoggedIn) {
+            // Si el usuario ya está logueado, redirigir al MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Finalizamos esta actividad para no poder regresar a ella
+        } else {
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.main)
+            ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+            init()
+            start()
         }
-        init()
-        start()
     }
 
     //Método para inicializar las referencias de los elementos del xml y FirebaseAuth
@@ -115,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
 
     //Método para iniciar sesion con el email y la contraseña
     // Se debe verificar el correo antes de loguearse.
+    //Se usa sharedpreferences.
     private fun iniciarLogin(user: String, pass: String, onResult: (Boolean, String) -> Unit) {
         auth.signInWithEmailAndPassword(user, pass)
             .addOnCompleteListener {
@@ -123,6 +134,11 @@ class LoginActivity : AppCompatActivity() {
                 if (taskAssin.isSuccessful){
                     val posibleUser = auth.currentUser
                     if (posibleUser?.isEmailVerified == true){
+                        val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putBoolean("is_logged_in", true)
+                        editor.apply()
+
                         onResult ( true, "Usuario logueado correctamente")
                     }else{
                         auth.signOut()

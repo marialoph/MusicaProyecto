@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectomusica.controller.Controller
 import com.example.proyectomusica.databinding.ActivityMainBinding
 import com.example.proyectomusica.objects_models.Repository
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     lateinit var controller : Controller
@@ -27,12 +28,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonLogOut.setOnClickListener{
-            view->
-            intent = Intent(this, LoginActivity::class.java).apply{
-                putExtra("name", "maria")
-            }
-            startActivity(intent)
+           logout()
         }
+    }
+
+    // Eliminar el estado de login de SharedPreferences
+    private fun logout() {
+        val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("is_logged_in", false)
+        editor.apply()
+
+        val auth = FirebaseAuth.getInstance()
+        auth.signOut()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun init(){
