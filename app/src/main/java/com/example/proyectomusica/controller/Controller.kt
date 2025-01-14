@@ -5,17 +5,17 @@ import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.proyectomusica.MainActivity
 import com.example.proyectomusica.adapter.AdapterMusica
 import com.example.proyectomusica.dao.DaoMusica
-import com.example.proyectomusica.databinding.ActivityMainBinding
 import com.example.proyectomusica.dialogues.AddDialog
 import com.example.proyectomusica.dialogues.DeleteDialog
 import com.example.proyectomusica.dialogues.EditDialog
+import com.example.proyectomusica.fragment.FragmentMusica
 import com.example.proyectomusica.models.Musica
 
-class Controller (val context : Context, var binding : ActivityMainBinding){
+class Controller (val context : Context, val fragment: FragmentMusica){
     lateinit var listaMusica : MutableList<Musica>
+    lateinit var adapterMusica: AdapterMusica
 
     init {
         initData()
@@ -27,15 +27,15 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
 
     // Este método configura el adaptador para el RecyclerView y lo conecta al RecyclerView de la actividad
     fun setAdapter() {
-        val myActivity = context as MainActivity
-        val adapterMusica = AdapterMusica(
+        val binding = fragment.binding
+        adapterMusica = AdapterMusica(
             listaMusica,
             {pos -> delMusica(pos)},
             {pos -> mostrarEditDialog(pos)}
         )
 
-        myActivity. binding.myRecyclerView.adapter = adapterMusica
-        myActivity.binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.myRecyclerView.adapter = adapterMusica
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     // Muestra el dialogo y actualiza al pulsar el boton borrar.
@@ -43,6 +43,7 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
         val nombreArtista = listaMusica[pos].nombre
         val dialog = DeleteDialog(nombreArtista) {
             listaMusica.removeAt(pos)
+            val binding = fragment.binding
             (binding.myRecyclerView.adapter as AdapterMusica).apply {
                 notifyItemRemoved(pos)
                 notifyItemRangeChanged(pos, listaMusica.size - pos)
@@ -64,6 +65,7 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
     //Actualiza el cardiewnuevo
     private fun actualizaMusicaNueva(musica: Musica) {
         listaMusica.add(musica)
+        val binding = fragment.binding
         (binding.myRecyclerView.adapter as AdapterMusica).notifyItemInserted(listaMusica.size - 1)
         Toast.makeText(context,"Nuevo artista ${musica.nombre}", Toast.LENGTH_SHORT).show()
     }
@@ -87,6 +89,7 @@ class Controller (val context : Context, var binding : ActivityMainBinding){
         }
         if (position != -1) {
             listaMusica[position] = musica
+            val binding = fragment.binding
             (binding.myRecyclerView.adapter as AdapterMusica).notifyItemChanged(position)
             Toast.makeText(context,"El artista ${musica.nombre} se ha modificado", Toast.LENGTH_SHORT).show()
 
