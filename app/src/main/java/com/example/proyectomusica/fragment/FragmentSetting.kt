@@ -28,9 +28,7 @@ class FragmentSetting : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSettingBinding.inflate(inflater, container, false)
-
         pasarTemaClaroOscuro()
-
         pulsarBoton()
 
         return binding.root

@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="#4682b4">
 
-
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="96dp"

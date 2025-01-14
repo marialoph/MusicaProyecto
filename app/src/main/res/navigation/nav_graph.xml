@@ -20,4 +20,5 @@
         android:name="com.example.proyectomusica.fragment.FragmentMusica"
         android:label="fragment_musica"
         tools:layout="@layout/fragment_musica" />
+
 </navigation>

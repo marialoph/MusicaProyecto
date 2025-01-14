@@ -19,6 +19,7 @@ class FragmentMusica : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         activitycontext = requireActivity() as MainActivity
         binding = FragmentMusicaBinding.inflate(inflater, container, false)

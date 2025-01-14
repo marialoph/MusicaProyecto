@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-
     }
 
     // Eliminar el estado de login de SharedPreferences
@@ -100,7 +98,5 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-
-
     }
 }

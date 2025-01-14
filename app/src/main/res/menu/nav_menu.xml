@@ -17,6 +17,7 @@
             android:icon="@drawable/singer"
             />
     </group>
+
     <item android:title="" >
         <menu >
             <item android:title="Logout"

@@ -9,8 +9,7 @@
         android:id="@+id/fragmentSetting"
         android:icon="@drawable/setting"
         android:title="Setting"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/fragmentLogout"
         android:icon="@drawable/logout"
