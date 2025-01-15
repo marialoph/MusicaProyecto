@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -39,12 +40,27 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.fragmentHome, R.id.fragmentSetting), // Destinos principales
-            binding.main // DrawerLayout
+            binding.main
         )
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+        //Titulo de cada fragmento al pulsar
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.fragmentHome -> updateTitulo("Inicio")
+                R.id.fragmentSetting -> updateTitulo("Setting")
+                R.id.fragmentMusica -> updateTitulo("Artistas")
+                else -> updateTitulo("Musica")
+            }
+        }
+    }
+
+    //Método para actualizar el titulo al pulsar en el menu
+    private fun updateTitulo(title: String) {
+        supportActionBar?.title = title
     }
 
     // Eliminar el estado de login de SharedPreferences
@@ -78,11 +94,13 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.fragmentHome -> {
                 navController.navigate(R.id.fragmentHome)
+                updateTitulo("Inicio")
                 true
             }
 
             R.id.fragmentSetting -> {
                 navController.navigate(R.id.fragmentSetting)
+                updateTitulo("Setting")
                 true
             }
 
@@ -93,6 +111,7 @@ class MainActivity : AppCompatActivity() {
 
             R.id.fragmentMusica -> {
                 navController.navigate(R.id.fragmentMusica)
+                updateTitulo("Artistas")
                 true
             }
 

@@ -17,6 +17,6 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/fragmentMusica"
-        android:title="Listado"
+        android:title="Artistas"
         android:icon="@drawable/singer"/>
 </menu>
