@@ -234,3 +234,103 @@ En el layout se crea el diseño tanto del register como del login:
     - EditText repetir contraseña
     - Button registrarse
     - Button iniciar sesión
+
+
+
+### **VERSION 1.4 Añado Navigation Drawer**
+Convierto el activity donde tengo el listado de recyclerView en Fragment.
+El fragment `FragmentMusica` contiene:
+```kotlin
+class FragmentMusica : Fragment() {
+    lateinit var binding: FragmentMusicaBinding
+    lateinit var controller: Controller
+    lateinit var activitycontext : MainActivity
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+
+    ): View? {
+        activitycontext = requireActivity() as MainActivity
+        binding = FragmentMusicaBinding.inflate(inflater, container, false)
+        controller = Controller(activitycontext, this)
+        initRecyclerView()
+
+        binding.buttonAnnadir.setOnClickListener {
+            controller.mostrarAddDialog()
+        }
+
+        return binding.root
+    }
+
+    // Este método configura el RecyclerView
+    private fun initRecyclerView() {
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
+        controller.setAdapter()
+    }
+
+}
+```
+Creo dos fragmentos más: `FragmentHome` y `FragmentSetting`, para tener más opciones en el menu.
+El `MainActivity` he añadido dos variables nuevas:
+```kotlin
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+```
+Sirve para configurar el menú y que sea visible mediante los siguientes métodos:
+```kotlin
+override fun onSupportNavigateUp(): Boolean{
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return true
+    }
+
+
+    //Navegación del menú de opciones.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.fragmentHome -> {
+                navController.navigate(R.id.fragmentHome)
+                updateTitulo("Inicio")
+                true
+            }
+
+            R.id.fragmentSetting -> {
+                navController.navigate(R.id.fragmentSetting)
+                updateTitulo("Setting")
+                true
+            }
+
+            R.id.fragmentLogout -> {
+                logout()
+                true
+            }
+
+            R.id.fragmentMusica -> {
+                navController.navigate(R.id.fragmentMusica)
+                updateTitulo("Artistas")
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+```
+Para el diseño de ambos menús he añadido y modificado algunos ficheros:
+- `Layout`:
+  - _activity_main.xml_ (Se modifica para mostrar ambos menús)
+  - _app_bar_layout.xml_ (Para el toolbar)
+  - _content.xml_
+  - _fragment_home.xml_
+  - _fragment_musica.xml_
+  - _fragment_setting_
+  - _nav_header.xml_ (Para el drawer)
+- `Menu`:
+  - _nav_menu.xml_ (Para el drawer)
+  - _toolbar.xml_
+- `Navigation`:
+  - _nav_graph_ (Para la navegación de ambos menus)
+
