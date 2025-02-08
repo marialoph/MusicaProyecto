@@ -102,7 +102,7 @@ Damos el permiso de internet para que las imágenes se puedan ver.
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
-
+---
 
 ### **VERSION 1.2 CRUD completo con alta, edición y borrado en memoria**
 **Cambios en las clases ya creadas de la versión anterior**
@@ -186,7 +186,7 @@ Damos el permiso de internet para que las imágenes se puedan ver.
     
   Para que al pulsar los botones se muestren los dialogos.
 
-
+---
 
 ### **VERSION 1.3 Autenticación y creación de usuario en Firebase**
 **Para añadir Firebase al proyecto**
@@ -234,3 +234,421 @@ En el layout se crea el diseño tanto del register como del login:
     - EditText repetir contraseña
     - Button registrarse
     - Button iniciar sesión
+
+---
+ 
+### **VERSION 1.4 Añado Navigation Drawer**
+Convierto el activity donde tengo el listado de recyclerView en Fragment.
+El fragment `FragmentMusica` contiene:
+```kotlin
+class FragmentMusica : Fragment() {
+    lateinit var binding: FragmentMusicaBinding
+    lateinit var controller: Controller
+    lateinit var activitycontext : MainActivity
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+
+    ): View? {
+        activitycontext = requireActivity() as MainActivity
+        binding = FragmentMusicaBinding.inflate(inflater, container, false)
+        controller = Controller(activitycontext, this)
+        initRecyclerView()
+
+        binding.buttonAnnadir.setOnClickListener {
+            controller.mostrarAddDialog()
+        }
+
+        return binding.root
+    }
+
+    // Este método configura el RecyclerView
+    private fun initRecyclerView() {
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(context)
+        controller.setAdapter()
+    }
+
+}
+```
+Creo dos fragmentos más: `FragmentHome` y `FragmentSetting`, para tener más opciones en el menu.
+El `MainActivity` he añadido dos variables nuevas:
+```kotlin
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+```
+Sirve para configurar el menú y que sea visible mediante los siguientes métodos:
+```kotlin
+override fun onSupportNavigateUp(): Boolean{
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return true
+    }
+
+
+    //Navegación del menú de opciones.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.fragmentHome -> {
+                navController.navigate(R.id.fragmentHome)
+                updateTitulo("Inicio")
+                true
+            }
+
+            R.id.fragmentSetting -> {
+                navController.navigate(R.id.fragmentSetting)
+                updateTitulo("Setting")
+                true
+            }
+
+            R.id.fragmentLogout -> {
+                logout()
+                true
+            }
+
+            R.id.fragmentMusica -> {
+                navController.navigate(R.id.fragmentMusica)
+                updateTitulo("Artistas")
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+```
+Para el diseño de ambos menús he añadido y modificado algunos ficheros:
+- `Layout`:
+  - _activity_main.xml_ (Se modifica para mostrar ambos menús)
+  - _app_bar_layout.xml_ (Para el toolbar)
+  - _content.xml_
+  - _fragment_home.xml_
+  - _fragment_musica.xml_
+  - _fragment_setting_
+  - _nav_header.xml_ (Para el drawer)
+- `Menu`:
+  - _nav_menu.xml_ (Para el drawer)
+  - _toolbar.xml_
+- `Navigation`:
+  - _nav_graph_ (Para la navegación de ambos menus)
+
+ ---
+
+### **VERSION 1.5 Adaptación del proyecto a mvvm**
+He realizado una reestructuración completa del proyecto a la arquitectura MVVM(Model_View_ViewModel).
+
+He creado tres carpetas principales `data`, `domain` y `ui`, dentro de cada carpeta encontramos:
+
+---
+
+- Carpeta `data`: Manejo de datos.
+   - `datasource`: **Repository** contiene la fuente de datos.
+   - `repository`: **MusicaRepository** administra la lista de objetos(musica) y gestiona su almacenamiento.
+     
+---
+
+- Carpeta `domain`: Se encarga de manejar la lógica.
+  - `models`: He creado **ListMusica** para almacenar la lista y **Musica** es el modelo de datos para representar el artista.
+  - `repository`: He creado **InterfaceDao** define los métodos que se implementaran para su buen funcionamiento.
+  - `usecase`: He creado los casos de uso **AllMusicaUseCase**, **DeleteMusicaUseCase**, **NewMusicaUseCase** y **UpdateMusicaUseCase** que encapsulan una lógica específica.
+
+---
+
+- Carpeta `ui` : Contiene las partes de la interfaz de usuario.
+  - `adapter`: **AdapterMusica** y **ViewHMusica** para mostrar y manejar los elementos de la lista.
+  - `viewmodel`: He creado `MusicaViewModel` como intermedio entre la interfaz de usuario y la lógica.
+  - `views`: 
+    - `activities`: **LoginActivity**, **MainActivity** y **RegisterActivity**
+    - `dialogues`: **AddDialog**, **DeleteDialog** y **EditDialog**
+    - `fragment`: **FragmentHome**, **FragmentSetting** y **FragmentMusica**(lo modifico para adaptarlo a la nueva estructura)
+
+---
+
+Ficheros nuevos que he creado:
+
+_MusicaRepository_
+```java
+class MusicaRepository() : InterfaceDao {
+    var musicaList: MutableList<Musica> = mutableListOf()
+
+    //Método que devuelve la lista de musica
+    override fun getDataMusica(): MutableList<Musica> {
+        return Repository.listaMusica.toMutableList()
+    }
+
+    //Método que elimina un objeto(musica) de la lista por su posición
+    override suspend fun deleteMusica(pos: Int): Boolean {
+        return if (pos >= 0 && pos < musicaList.size) {
+            musicaList.removeAt(pos)
+            true
+        } else {
+            false
+        }
+    }
+
+    //Método que añade al repositorio un objeto(musica) nuevo
+    override suspend fun addMusica(musica: Musica) : Musica?{
+        ListMusica.music.musica.add(musica)
+        return musica
+    }
+
+    //Método que actualiza un objeto(musica) en la posicion en la que esta
+    override suspend fun update(pos: Int, musica: Musica): Boolean {
+        if (pos >= 0 && pos < musicaList.size) {
+            musicaList[pos] = musica
+            return true
+        }
+        return false
+    }
+
+    //Método que verifica si el objeto(musica) existe
+    override suspend fun exisMusica(musica: Musica) : Boolean = ListMusica.music.musica.contains(musica)
+
+
+    //Devuelve el objeto(musica) en una posición específica
+    override fun getMusicaByPos (pos:Int) : Musica? {
+        return if (pos < ListMusica.music.musica.size)
+            ListMusica.music.musica.get(pos)
+        else
+            null
+    }
+}
+```
+
+_ListMusica_
+```java
+class ListMusica private constructor(){
+    var musica: MutableList<Musica> = mutableListOf()
+
+    companion object{
+        val music : ListMusica by lazy {
+            ListMusica()
+        }
+    }
+}
+```
+_InterfaceDao_
+```java
+interface InterfaceDao {
+    fun getDataMusica(): List<Musica>
+
+    suspend fun deleteMusica(id:Int) : Boolean
+
+    suspend fun addMusica(musica: Musica) : Musica?
+
+    suspend fun update(id: Int, musica: Musica) : Boolean
+
+    suspend fun exisMusica(musica: Musica) : Boolean
+
+    fun getMusicaByPos(pos:Int) : Musica?
+}
+```
+
+_AllMusicaUseCase_
+```java
+class AllMusicaUseCase (private  val musicaRepository: MusicaRepository) {
+     operator fun invoke(): MutableList<Musica> {
+        return musicaRepository.getDataMusica()
+    }
+}
+```
+
+_DeleteMusicaUseCase_
+```java
+class DeleteMusicaUseCase(private val musicaRepository: MusicaRepository) {
+    suspend operator fun invoke(pos: Int): Boolean {
+        return musicaRepository.deleteMusica(pos)
+    }
+}
+```
+
+_NewMusicaUseCase_
+```java
+class NewMusicaUseCase(private val musicaRepository: MusicaRepository) {
+    suspend operator fun  invoke(newMusica: Musica) : Musica?{
+        return if (!musicaRepository.exisMusica(newMusica)){
+            return musicaRepository.addMusica(newMusica)
+        }else{
+            null
+        }
+    }
+}
+```
+
+_UpdateMusicaUseCase_
+```java
+class UpdateMusicaUseCase(private val musicaRepository: MusicaRepository) {
+    suspend operator fun invoke(pos: Int, musica: Musica): Boolean {
+        return musicaRepository.update(pos, musica)
+    }
+}
+```
+
+_MusicaViewModel_
+```java
+class MusicaViewModel () : ViewModel() {
+    //Inicializo el repositorio y los casos de uso
+    private val musicaRepository = MusicaRepository()
+    private val getAllMusicaUseCase = AllMusicaUseCase(musicaRepository)
+    private val newMusicaUseCase = NewMusicaUseCase(musicaRepository)
+    private val updateMusicaUseCase = UpdateMusicaUseCase(musicaRepository)
+    private val deleteMusicaUseCase = DeleteMusicaUseCase(musicaRepository)
+    val musicaListData = MutableLiveData<List<Musica>>()
+
+
+    //Método para obtener y mostrar toda la lista de musica
+    fun showMusica() {
+        viewModelScope.launch {
+            val data: List<Musica> = getAllMusicaUseCase()
+            musicaListData.postValue(data)
+        }
+    }
+
+
+    //Método que añade una nueva música
+    //Llamo al caso de uso para agregar la nueva musica
+    //Por último actualizo la lista
+    fun addMusica(musica: Musica) {
+        viewModelScope.launch {
+            val newMusica = newMusicaUseCase(musica)
+            newMusica?.let {
+                val updatedList = musicaListData.value?.toMutableList() ?: mutableListOf()
+                updatedList.add(it)
+                musicaListData.postValue(updatedList)
+            }
+        }
+    }
+
+    //Método para actualizar una música de la lista
+    //Si la posición es válida se actualiza la música en esa posición.
+    //Se actualiza la lista
+    fun updateMusica(musica: Musica, pos: Int) {
+        viewModelScope.launch {
+            val updatedList = musicaListData.value?.toMutableList() ?: mutableListOf()
+
+            if (pos >= 0 && pos < updatedList.size) {
+                updatedList[pos] = musica
+                musicaListData.postValue(updatedList)
+                updateMusicaUseCase(pos, musica)
+            }
+        }
+    }
+
+
+    //Método para eliminar una musica de la lista
+    //Si la posición es válida se elimina la música en esa posición
+    //Se actualiza la lista
+    fun deleteMusica(pos: Int) {
+        viewModelScope.launch {
+            val updatedList = musicaListData.value?.toMutableList() ?: mutableListOf()
+            if (pos >= 0 && pos < updatedList.size) {
+                updatedList.removeAt(pos)
+                musicaListData.postValue(updatedList)
+                deleteMusicaUseCase(pos)
+            }
+        }
+    }
+
+
+}
+```
+
+_FragmentMusica_ (Lo modifico para adaptarlo a la nueva estructura)
+```java
+class FragmentMusica : Fragment() {
+
+    lateinit var binding: FragmentMusicaBinding
+    lateinit var activitycontext: MainActivity
+    lateinit var adapterMusica: AdapterMusica
+    val musicaRepository = MusicaRepository()
+    private val musicaViewModel: MusicaViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMusicaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    //Se configura el recyclerview, el adapter y se observa los cambios en los datos
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(activity)
+        setAdapter(mutableListOf())
+        setObserver() // Observa los cambios en los datos
+        musicaViewModel.showMusica() // Muestra todos los datos
+
+        //Configuro el boton para mostrar el dialogo añadir
+        binding.buttonAnnadir.setOnClickListener {
+            btnAddOnClickListener()
+        }
+    }
+
+    //Método que muestra el dialogo y lo actualiza
+    private fun btnAddOnClickListener() {
+        val dialog = AddDialog() { musica ->
+            musicaViewModel.addMusica(musica)
+        }
+        dialog.show(requireActivity().supportFragmentManager, "Añadir un nuevo artista")
+    }
+
+    //Método que muestra el listado de musica
+    private fun setAdapter(musics: MutableList<Musica>) {
+        adapterMusica = AdapterMusica(
+            musics,
+            { musica -> delMusica(musica) },
+            { musica -> updateMusica(musica) }
+        )
+        binding.myRecyclerView.adapter = adapterMusica
+    }
+
+    //Muestra el dialogo para editar
+    //Se obtiene el indice de la musica a editar
+    //Se actualiza
+    private fun updateMusica(musica: Musica) {
+        val editDialog = EditDialog(musica) { editMusica ->
+            // Obtiene el índice de la música a actualizar
+            val pos = musicaViewModel.musicaListData.value?.indexOfFirst { it.nombre == musica.nombre } ?: -1
+            if (pos != -1) {
+                musicaViewModel.updateMusica(editMusica, pos)
+            } else {
+                Log.e("Edit", "Música no encontrada para editar.")
+            }
+        }
+        editDialog.show(requireActivity().supportFragmentManager, "Editar un artista")
+    }
+
+
+    //Muestra el diálogo para eliminar
+    //Se obtiene el indice de la musica a eliminar
+    //Se actualiza
+    private fun delMusica(musica: Musica) {
+        val dialog = DeleteDialog(musica.nombre) {
+            // Obtiene el índice de la música a eliminar
+            val pos = musicaViewModel.musicaListData.value?.indexOfFirst { it.nombre == musica.nombre } ?: -1
+            if (pos != -1) {
+                musicaViewModel.deleteMusica(pos)
+            } else {
+                Log.e("Delete", "Música no encontrada para eliminar.")
+            }
+        }
+        dialog.show(requireActivity().supportFragmentManager, "Eliminar un artista")
+    }
+
+    //Se observan los cambios de la lista
+    private fun setObserver() {
+        musicaViewModel.musicaListData.observe(viewLifecycleOwner) { musics ->
+            setAdapter(musics.toMutableList())
+        }
+    }
+
+}
+```
+
+
+
+
