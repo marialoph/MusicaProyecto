@@ -1,4 +1,4 @@
-package com.example.proyectomusica
+package com.example.proyectomusica.ui.views.activities
 
 import android.content.Intent
 import android.os.Bundle

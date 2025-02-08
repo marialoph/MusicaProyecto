@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
     android:background="@drawable/degradadocolor"
-    tools:context=".MainActivity">
+    tools:context=".ui.views.activities.MainActivity">
 
     <include
         android:id="@+id/app_bar_layout_drawer"

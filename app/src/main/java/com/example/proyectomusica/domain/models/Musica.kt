@@ -1,4 +1,4 @@
-package com.example.proyectomusica.models
+package com.example.proyectomusica.domain.models
 
 
 class Musica(

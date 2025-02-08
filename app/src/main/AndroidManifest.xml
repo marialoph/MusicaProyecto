@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ProyectoMusica"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.views.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
         </activity>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.views.activities.RegisterActivity"
             android:exported="true" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.views.activities.MainActivity"
             android:exported="false"/>
     </application>
 

@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.example.proyectomusica.fragment.FragmentHome"
+        android:name="com.example.proyectomusica.ui.views.fragment.FragmentHome"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/fragmentSetting"
-        android:name="com.example.proyectomusica.fragment.FragmentSetting"
+        android:name="com.example.proyectomusica.ui.views.fragment.FragmentSetting"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/fragmentMusica"
-        android:name="com.example.proyectomusica.fragment.FragmentMusica"
+        android:name="com.example.proyectomusica.ui.views.fragment.FragmentMusica"
         android:label="fragment_musica"
         tools:layout="@layout/fragment_musica" />
 

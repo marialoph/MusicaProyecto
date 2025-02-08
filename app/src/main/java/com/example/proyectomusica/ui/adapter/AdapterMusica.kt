@@ -1,14 +1,14 @@
-package com.example.proyectomusica.adapter
+package com.example.proyectomusica.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomusica.databinding.ItemMusicaBinding
-import com.example.proyectomusica.models.Musica
+import com.example.proyectomusica.domain.models.Musica
 
 class AdapterMusica(var listaMusica : MutableList<Musica>,
-    var deleteOnClick: (Int) -> Unit,
-    private val onEditClick : (Musica) -> Unit
+                    var deleteOnClick: (Musica) -> Unit,
+                    private val onEditClick : (Musica) -> Unit
 ) : RecyclerView.Adapter<ViewHMusica>(){
 
     //Método llamado por el recyclerview para crear un nuevo viewHolder

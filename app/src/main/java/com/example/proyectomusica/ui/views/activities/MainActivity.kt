@@ -1,28 +1,21 @@
-package com.example.proyectomusica
+package com.example.proyectomusica.ui.views.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.proyectomusica.controller.Controller
+import com.example.proyectomusica.R
 import com.example.proyectomusica.databinding.ActivityMainBinding
-import com.example.proyectomusica.objects_models.Repository
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
-    lateinit var controller : Controller
     lateinit var binding : ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration

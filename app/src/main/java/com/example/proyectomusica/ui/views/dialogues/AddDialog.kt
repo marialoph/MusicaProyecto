@@ -1,34 +1,23 @@
-package com.example.proyectomusica.dialogues
+package com.example.proyectomusica.ui.views.dialogues
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.proyectomusica.databinding.AddEditDeleteBinding
-import com.example.proyectomusica.models.Musica
+import com.example.proyectomusica.domain.models.Musica
 
-
-//Crea un dialogo que permita modificar el artista que se ha seleccionado
-class EditDialog(
-    private val musica: Musica,
-    private val musicaEdit: (Musica) -> Unit) : DialogFragment() {
-    private lateinit var binding: AddEditDeleteBinding
+//Crea un dialogo que permite al usuario añadir un nuevo cardview de un artista
+class AddDialog(private val musicaAdd : (Musica) -> Unit) : DialogFragment() {
+    lateinit var binding: AddEditDeleteBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = AddEditDeleteBinding.inflate(LayoutInflater.from(context))
-
-        // Prellena los campos con los datos del artista
-        binding.editNombre.setText(musica.nombre)
-        binding.editGeneroMusical.setText(musica.generoMusical)
-        binding.editAlbums.setText(musica.albums)
-        binding.editFechaNacimiento.setText(musica.fechaNacimiento)
-        binding.editImagen.setText(musica.image)
-
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
-            .setTitle("Editar Artista")
+            .setTitle("Añadir Nuevo Artista")
             .setPositiveButton("Guardar") { _, _ ->
                 val nombre = binding.editNombre.text.toString()
                 val generoMusical = binding.editGeneroMusical.text.toString()
@@ -39,9 +28,9 @@ class EditDialog(
                 if (nombre.isNotBlank() && generoMusical.isNotBlank() &&
                     albums.isNotBlank() && fechaNacimiento.isNotBlank() && imagenUrl.isNotBlank()
                 ) {
-
-                    val musicaEditada = Musica(nombre, generoMusical, albums, fechaNacimiento, imagenUrl)
-                    musicaEdit(musicaEditada)
+                    val nuevaMusica =
+                        Musica(nombre, generoMusical, albums, fechaNacimiento, imagenUrl)
+                    musicaAdd(nuevaMusica)
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -50,10 +39,8 @@ class EditDialog(
                     ).show()
                 }
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             .create()
     }
-
 }
+

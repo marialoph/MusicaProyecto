@@ -1,4 +1,4 @@
-package com.example.proyectomusica.fragment
+package com.example.proyectomusica.ui.views.fragment
 
 import android.content.Context
 import android.os.Bundle

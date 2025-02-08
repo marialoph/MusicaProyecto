@@ -11,12 +11,13 @@
         android:title="Setting"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/fragmentLogout"
-        android:icon="@drawable/logout"
-        android:title="Log out"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/fragmentMusica"
         android:title="Artistas"
         android:icon="@drawable/singer"/>
+
+    <item
+        android:id="@+id/fragmentLogout"
+        android:icon="@drawable/logout"
+        android:title="Log out"/>
+
 </menu>

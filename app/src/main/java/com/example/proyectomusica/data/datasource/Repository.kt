@@ -1,6 +1,6 @@
-package com.example.proyectomusica.objects_models
+package com.example.proyectomusica.data.datasource
 
-import com.example.proyectomusica.models.Musica
+import com.example.proyectomusica.domain.models.Musica
 
 object Repository {
 

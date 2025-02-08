@@ -1,4 +1,4 @@
-package com.example.proyectomusica.dialogues
+package com.example.proyectomusica.ui.views.dialogues
 
 import android.app.Dialog
 import android.os.Bundle
