@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,15 +33,13 @@ class MainActivity : AppCompatActivity() {
         val navView = binding.myNavView
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentHome, R.id.fragmentSetting), // Destinos principales
+            setOf(R.id.fragmentHome, R.id.fragmentSetting),
             binding.main
         )
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-        //Titulo de cada fragmento al pulsar
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentHome -> updateTitulo("Inicio")
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Método para actualizar el titulo al pulsar en el menu
     private fun updateTitulo(title: String) {
         supportActionBar?.title = title
     }

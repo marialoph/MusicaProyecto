@@ -4,16 +4,18 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.example.proyectomusica.domain.models.Musica
 
 //Crea un dialogo que permite borrar el artista seleccionado
 class DeleteDialog(
-    private val artista: String,
-    private val onConfirm: () -> Unit) : DialogFragment() {
+    private val musica: Musica,
+    private val onConfirm: () -> Unit
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
             .setTitle("Eliminar artista")
-            .setMessage("¿Desea borrar este artista: $artista?")
+            .setMessage("¿Desea borrar este artista: ${musica.nombre}?")
             .setPositiveButton("Sí") { dialog, _ ->
                 onConfirm()
                 dialog.dismiss()

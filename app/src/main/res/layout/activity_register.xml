@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:background="@drawable/bordestext"
-        android:hint="Email"
+        android:hint="Nombre"
         android:inputType="textEmailAddress"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,18 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_userRegister" />
 
-    <EditText
-        android:id="@+id/edit_repetirPassword"
-        android:layout_width="600px"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bordestext"
-        android:hint="Repite contraseña"
-        android:inputType="textPassword"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_passwordRegister" />
 
     <Button
         android:id="@+id/btn_registrar"
@@ -72,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_repetirPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_passwordRegister" />
 
     <Button
         android:id="@+id/btn_logueo"

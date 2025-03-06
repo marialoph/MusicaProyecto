@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="130sp"
-        android:layout_marginStart="30sp"
+        android:layout_marginStart="115sp"
         android:text="Aplicación de Música"
         android:textSize="20sp"
         android:textStyle="bold"/>
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="150sp"
-        android:layout_marginStart="80sp"
+        android:layout_marginStart="170sp"
         android:text="Bienvenido"
         android:textSize="20sp"
         android:textStyle="italic"/>
@@ -27,7 +27,7 @@
         android:id="@+id/gifImageView"
         android:layout_width="200dp"
         android:layout_height="150dp"
-        android:layout_marginStart="170px"
+        android:layout_marginStart="290px"
         android:padding="7dp"
         android:background="@drawable/bordegif"
         android:layout_marginTop="600px"

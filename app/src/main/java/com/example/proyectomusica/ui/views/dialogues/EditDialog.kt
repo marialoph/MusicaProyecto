@@ -94,7 +94,7 @@ class EditDialog(
                     musicaEdit(musicaEditada)
 
                     // Se vuelve a actualizar la vista con la imagen nueva
-                    if (musica.image.isNotBlank()) {
+                    if (!musica.image.isNullOrBlank()) {
                         Glide.with(this)
                             .load("data:image/jpeg;base64," + musica.image)
                             .into(binding.imageView2)
