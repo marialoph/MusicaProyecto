@@ -1008,7 +1008,7 @@ Para que funcione correctamente se añade en el `AndroidManifest`, los permisos 
 
 ---
 
-### **VERSION 4.1: Adaptar el login y el crud a la api **
+### **VERSION 4.1: Adaptar el login y el crud a la api**
 Una vez hecho el backend con **persistence with JWT**, es decir, una api que cuando registre un nuevo usuario y me logué, me genere un token, y que gracias a ese token me deje ver el listado de datos.
 Para hacer la conexión he creado:
 - Carpeta `data`:
@@ -1024,7 +1024,7 @@ Para hacer la conexión he creado:
   Dentro de la carpeta network tengo el fichero
  _InstanceRetrofit_: Encargado de crear la instancia de Retrofit con la URL base y el manejo del token.
 
--Carpeta `domain`:
+- Carpeta `domain`:
   He añadido dos nuevos casos de uso:
   - _LoginUseCase_: Caso de uso para manejar la lógica de autenticación.
   - _RegisterUseCase_: Caso de uso para manejar el registro de usuarios.
